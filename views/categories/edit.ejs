@@ -1,0 +1,6 @@
+<h2>Edit Category</h2>
+<form action="/categories/<%= category._id %>?_method=PUT" method="post">
+    <%- include('_form_fields') %> 
+    <a href="/categories/<%= category._id %>">Cancel</a>
+    <button type="submit">Update</button>
+</form>

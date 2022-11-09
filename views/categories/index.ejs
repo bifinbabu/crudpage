@@ -3,6 +3,9 @@
 
 <div>
     <% categories.forEach(category => { %>
-        <div><%= category.name %></div> 
+        <div><%= category.name %></div>
+        <a href="/categories/<%= category._id %>">View</a> 
+        <a href="/categories/<%= category._id %>/edit">Edit</a> 
+        <%- include('../partials/deleteForm', { url: `/categories/${category._id}` }) %> 
     <% }) %> 
 </div>

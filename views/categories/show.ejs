@@ -1,0 +1,10 @@
+<h2><%= category.name %></h2>
+<a href="/categories/<%= category._id %>/edit">Edit</a>
+<%- include('../partials/deleteForm', { url: `/categories/${category._id}` }) %> 
+
+<% if (productsUnderCategory.length > 0) { %> 
+    <h2>Products Under This Category</h2>
+    <% productsUnderCategory.forEach(product => { %>
+        <div><%= product.name %></div>  
+    <% }) %> 
+<% } %> 
