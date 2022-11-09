@@ -30,14 +30,78 @@ router.post('/', async (req, res) =>{
     })
     try {
         const newProduct = await product.save()
-        // res.redirect(`/products/${newProduct.id}`)
-        res.redirect('/products')
+        res.redirect(`/products/${newProduct.id}`)
     } catch {
         renderNewPage(res, product, true)
     }
 })
 
+// Show Product Route
+router.get('/:id', async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id).populate('category').exec()
+        res.render('products/show', { product: product })
+    } catch {
+        res.redirect('/')
+    }
+})
+
+// Edit Product Route
+router.get('/:id/edit', async (req, res) =>{
+    try {
+        const product = await Product.findById(req.params.id)
+        renderEditPage(res, product)
+    } catch {
+        res.redirect('/')
+    }
+})
+
+// Update Product Route
+router.put('/:id', async (req, res) =>{
+    let product
+    try {
+        product = await Product.findById(req.params.id)
+        product.name = req.body.name,
+        product.category = req.body.category
+        await product.save()
+        res.redirect(`/products/${product.id}`)
+    } catch {
+        if (product != null) {
+            renderEditPage(res, product, true)
+        } else {
+            res.redirect('/')
+        }
+    }
+})
+
+// Delete Product Route
+router.delete('/:id', async (req, res) => {
+    let product
+    try {
+        product = await Product.findById(req.params.id)
+        await product.remove()
+        res.redirect('/products')
+    } catch {
+        if (product != null) {
+            res.render('products/show', {
+                product: product,
+                errorMessage: 'Could not delete Product'
+            })
+        } else {
+            res.redirect('/')
+        }
+    }
+})
+
 async function renderNewPage(res, product, hasError = false) {
+    renderFormPage(res, product, 'new', hasError)
+}
+
+async function renderEditPage(res, product, hasError = false) {
+   renderFormPage(res, product, 'edit', hasError)
+}
+
+async function renderFormPage(res, product, form, hasError = false) {
     try {
         const categories = await Category.find({})
         const params =  {
@@ -45,9 +109,13 @@ async function renderNewPage(res, product, hasError = false) {
             product: product
         }
         if (hasError) {
-            params.errorMessage = 'Error Creating Product'
+            if (form === 'edit'){
+                params.errorMessage = 'Error Updating Product'
+            } else {
+                params.errorMessage = 'Error Creating Product'
+            }
         }
-        res.render('products/new', params)
+        res.render(`products/${form}`, params)
     } catch {
         res.redirect('/products')
     }

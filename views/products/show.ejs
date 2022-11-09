@@ -1,0 +1,15 @@
+<h2><%= product.name %></h2>
+<div>
+    <h4>Product ID: <%= product.id %></h4>
+</div>
+<div>
+    <h4>Category Name: <%= product.category.name  %></h4>
+</div>
+<div>
+    <h4>Category ID: <%= product.category.id %></h4>
+</div>
+
+<a href="/products/<%= product._id %>/edit">Edit</a>
+<%- include('../partials/deleteForm', { url: `/products/${product._id}` }) %> 
+<a href="/categories/<%= product.category._id %>">View Category</a>
+

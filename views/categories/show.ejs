@@ -5,6 +5,6 @@
 <% if (productsUnderCategory.length > 0) { %> 
     <h2>Products Under This Category</h2>
     <% productsUnderCategory.forEach(product => { %>
-        <div><%= product.name %></div>  
+        <div><a href="/products/<%= product._id %>"><%= product.name %></a></div>  
     <% }) %> 
 <% } %> 

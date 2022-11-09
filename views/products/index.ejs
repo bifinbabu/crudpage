@@ -3,7 +3,7 @@
 
 <div>
     <% products.forEach(product => { %>
-        <div><%= product.name %></div> 
+        <div><a href="/products/<%= product._id %>"><%= product.name %></a></div> 
         <div><%= product.category._id %></div> 
         <div><%= product.category.name %></div> 
     <% }) %> 
