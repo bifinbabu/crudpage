@@ -13,11 +13,11 @@ router.get('/', async (req, res) => {
 })
 
 // New Category Route
-router.get('/new', (req, res) =>{
+router.get('/new', async (req, res) =>{
     res.render('categories/new', { category: new Category() })
 })
 
-// Create Category route
+// Create Category Route
 router.post('/', async (req, res) =>{
     const category = new Category({
         name: req.body.name

@@ -9,6 +9,7 @@ const bodyParser = require('body-parser')
 
 const indexRouter = require('./routes/index')
 const categoryRouter = require('./routes/categories')
+const productRouter = require('./routes/products')
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
@@ -25,5 +26,6 @@ db.once('open', () => console.log('Connected to mongoose'))
 
 app.use('/', indexRouter)
 app.use('/categories', categoryRouter)
+app.use('/products', productRouter)
 
 app.listen(process.env.PORT || 3000)

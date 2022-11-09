@@ -1,0 +1,17 @@
+<div>
+    <label>Product Name</label>
+    <input type="text" name="name" value="<%= product.name %>">
+</div>
+
+<div>
+    <label>Category</label>
+    <select name="category">
+        <% categories.forEach(category => { %> 
+            <% if (category.id == product.category) { %> 
+                <option selected label="<%= category.name %>" value="<%= category.id %>">
+            <% } else { %> 
+                <option label="<%= category.name %>" value="<%= category.id %>">
+            <% } %> 
+        <% }) %> 
+    </select>
+</div>
