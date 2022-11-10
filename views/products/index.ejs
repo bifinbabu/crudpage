@@ -1,10 +1,41 @@
-<h1>All Products</h1>
+<h1>Products Page</h1>
 <br>
 
 <div>
-    <% products.forEach(product => { %>
-        <div><a href="/products/<%= product._id %>"><%= product.name %></a></div> 
-        <div><%= product.category._id %></div> 
-        <div><%= product.category.name %></div> 
-    <% }) %> 
+    <% for (var i = 0; i < products.length; i++) { %>
+        <div><a href="/products/<%= products[i]._id %>"><%= products[i].name %></a></div>
+        <div><%= products[i].category._id %></div> 
+        <div><%= products[i].category.name %></div> 
+    <% } %> 
+
+    <div>
+        <% if (pages > 0) { %>
+            <ul class="pagination text-center">
+                <% if (current === '?page=1') { %>
+                    <li class=""><a>First</a></li>
+                <% } else { %>
+                    <li><a href="/products?page=1">First</a></li>
+                <% } %>
+                <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                <% if (i !== 1) { %>
+                    <li class="disabled"><a>...</a></li>
+                <% } %>
+                <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                    <% if (i === current) { %>
+                        <li class="active"><a><%= i %></a></li>
+                    <% } else { %>
+                        <li><a href="/products?page=<%= i %>"><%= i %></a></li>
+                    <% } %>
+                    <% if (i == Number(current) + 4 && i < pages) { %>
+                        <li class="disabled"><a>...</a></li>
+                    <% } %>
+                <% } %>
+                <% if (current === pages) { %>
+                    <li class="disabled"><a>Last</a></li>
+                <% } else { %>
+                    <li><a href="/products?page=<%= pages %>">Last</a></li>
+                <% } %>
+            </ul>
+        <% } %>
+    </div>
 </div>

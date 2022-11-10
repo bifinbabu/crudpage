@@ -3,12 +3,21 @@ const Category = require('../models/category')
 const Product = require('../models/product')
 const router = express.Router()
 
+let limit = 3
 // All Categories Route
-router.get('/', async (req, res) => {
+router.get('/', paginatedResults(Category, limit), async (req, res) => {
     try {
-        const categories = await Category.find({})
-        res.render('categories/index', { categories: categories })
-    } catch {
+        const categories = res.paginatedResults
+        var page = req.params.page || 1
+        let count = await Category.countDocuments().exec()
+        let pages = Math.ceil(count / limit) // 3 is limit
+        res.render('categories/index', { 
+            categories: categories.results, 
+            pages: pages,
+            current: page
+        })
+    } catch (err) {
+        console.log(err);
         res.redirect('/')
     }
 })
@@ -89,5 +98,37 @@ router.delete('/:id', async (req, res) => {
         }
     }
 })
+
+function paginatedResults(model, lim) {
+    return async (req, res, next) => {
+        const page = parseInt(req.query.page)
+        const limit = lim
+
+        const startIndex = (page - 1) * limit
+        const endIndex = page * limit
+
+        const results = {}
+
+        if (endIndex < await model.countDocuments().exec()) {
+            results.next = {
+                page: page + 1,
+                limit: limit
+            }
+        }
+        if (startIndex > 0) {
+            results.previous = {
+                page: page - 1,
+                limit: limit
+            }
+        }
+        try {
+            results.results = await model.find().limit(limit).skip(startIndex).exec()
+            res.paginatedResults = results
+            next()
+        } catch (e) {
+            res.status(500).json({ message: e.message })
+        }
+    }
+}
 
 module.exports = router

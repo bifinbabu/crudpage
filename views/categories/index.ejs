@@ -2,10 +2,40 @@
 <br>
 
 <div>
-    <% categories.forEach(category => { %>
-        <div><%= category.name %></div>
-        <a href="/categories/<%= category._id %>">View</a> 
-        <a href="/categories/<%= category._id %>/edit">Edit</a> 
-        <%- include('../partials/deleteForm', { url: `/categories/${category._id}` }) %> 
-    <% }) %> 
+    <% for (var i = 0; i < categories.length; i++) { %>
+        <div><%= categories[i].name %></div>
+        <a href="/categories/<%= categories[i]._id %>">View</a> 
+        <a href="/categories/<%= categories[i]._id %>/edit">Edit</a> 
+        <%- include('../partials/deleteForm', { url: `/categories/${categories[i]._id}` }) %> 
+    <% } %> 
+    <div>
+        <% if (pages > 0) { %>
+            <ul class="pagination text-center">
+                <% if (current === '?page=1') { %>
+                    <li class=""><a>First</a></li>
+                <% } else { %>
+                    <li><a href="/categories?page=1">First</a></li>
+                <% } %>
+                <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                <% if (i !== 1) { %>
+                    <li class="disabled"><a>...</a></li>
+                <% } %>
+                <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                    <% if (i === current) { %>
+                        <li class="active"><a><%= i %></a></li>
+                    <% } else { %>
+                        <li><a href="/categories?page=<%= i %>"><%= i %></a></li>
+                    <% } %>
+                    <% if (i == Number(current) + 4 && i < pages) { %>
+                        <li class="disabled"><a>...</a></li>
+                    <% } %>
+                <% } %>
+                <% if (current === pages) { %>
+                    <li class="disabled"><a>Last</a></li>
+                <% } else { %>
+                    <li><a href="/categories?page=<%= pages %>">Last</a></li>
+                <% } %>
+            </ul>
+        <% } %>
+    </div>
 </div>
