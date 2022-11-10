@@ -1,4 +1,4 @@
-<h2><%= category.name %></h2>
+<h2 class="page-header"><%= category.name %></h2>
 <a href="/categories/<%= category._id %>/edit">Edit</a>
 <%- include('../partials/deleteForm', { url: `/categories/${category._id}` }) %> 
 

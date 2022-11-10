@@ -1,8 +1,8 @@
-<h1>All Products List</h1>
+<h1 class="page-header">All Products List</h1>
 <br>
 <div>
     <% for (var i = 0; i < products.length; i++) { %>
-        <div><a href="/products/<%= products[i]._id %>"><%= products[i].name %></a></div>
+        <div><a class="link" href="/products/<%= products[i]._id %>"><%= products[i].name %></a></div>
         <div><%= products[i]._id %></div> 
         <div><%= products[i].category.name %></div> 
         <div><%= products[i].category._id %></div> 
