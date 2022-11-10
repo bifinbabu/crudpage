@@ -1,6 +1,9 @@
 <h2 class="page-header"><%= category.name %></h2>
-<a href="/categories/<%= category._id %>/edit">Edit</a>
-<%- include('../partials/deleteForm', { url: `/categories/${category._id}` }) %> 
+
+<div class="btn-row">
+    <a class="btn btn-primary" href="/categories/<%= category._id %>/edit">Edit</a>
+    <%- include('../partials/deleteForm', { url: `/categories/${category._id}` }) %> 
+</div>
 
 <% if (productsUnderCategory.length > 0) { %> 
     <h2>Products Under This Category</h2>

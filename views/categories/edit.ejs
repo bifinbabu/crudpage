@@ -1,6 +1,10 @@
 <h2 class="page-header">Edit Category</h2>
 <form action="/categories/<%= category._id %>?_method=PUT" method="post">
     <%- include('_form_fields') %> 
-    <a href="/categories/<%= category._id %>">Cancel</a>
-    <button type="submit">Update</button>
+
+    <div class="form-row form-row-end btn-row">
+        <a class="btn btn-danger" href="/categories/<%= category._id %>">Cancel</a>
+        <button class="btn btn-primary" type="submit">Update</button>
+    </div>
+    
 </form>

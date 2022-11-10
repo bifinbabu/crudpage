@@ -3,12 +3,12 @@
 <div>
     <% for (var i = 0; i < products.length; i++) { %>
         <div><a class="link" href="/products/<%= products[i]._id %>"><%= products[i].name %></a></div>
-        <div><%= products[i]._id %></div> 
-        <div><%= products[i].category.name %></div> 
-        <div><%= products[i].category._id %></div> 
+        <div>Product ID: <%= products[i]._id %></div> 
+        <div>Category Name: <%= products[i].category.name %></div> 
+        <div>Category ID: <%= products[i].category._id %></div> 
     <% } %> 
 
-    <div>
+    <div class="page-row">
         <% if (pages > 0) { %>
             <ul class="pagination text-center">
                 <% if (current === '?page=1') { %>
