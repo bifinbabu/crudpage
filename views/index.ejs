@@ -2,12 +2,17 @@
 <br>
 <div>
     <% for (var i = 0; i < products.length; i++) { %>
-        <div><a class="link" href="/products/<%= products[i]._id %>"><%= products[i].name %></a></div>
-        <div>Product ID: <%= products[i]._id %></div> 
-        <div>Category Name: <%= products[i].category.name %></div> 
-        <div>Category ID: <%= products[i].category._id %></div> 
+        <div class="form-row">
+            <div class="form-item"><a class="link" href="/products/<%= products[i]._id %>"><%= products[i].name %></a></div>
+            <div class="form-item">Product ID: <%= products[i]._id %></div> 
+            <div class="form-item">Category Name: <%= products[i].category.name %></div> 
+            <div class="form-item">Category ID: <%= products[i].category._id %></div> 
+        </div>
     <% } %> 
-
+<br>
+<br>
+<br>
+<br>
     <div class="page-row">
         <% if (pages > 0) { %>
             <ul class="pagination text-center">

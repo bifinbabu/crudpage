@@ -3,7 +3,7 @@ const Category = require('../models/category')
 const Product = require('../models/product')
 const router = express.Router()
 
-let limit = 3
+let limit = 5
 // All Categories Route
 router.get('/', paginatedResults(Category, limit), async (req, res) => {
     try {

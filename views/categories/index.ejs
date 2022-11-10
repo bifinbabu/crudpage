@@ -3,13 +3,21 @@
 
 <div>
     <% for (var i = 0; i < categories.length; i++) { %>
-        <div><%= categories[i].name %></div>
-        <div class="btn-row">
-            <a class="btn btn-primary" href="/categories/<%= categories[i]._id %>">View</a> 
-            <a class="btn btn-primary" href="/categories/<%= categories[i]._id %>/edit">Edit</a> 
-            <%- include('../partials/deleteForm', { url: `/categories/${categories[i]._id}` }) %> 
+        <div class="form-row">
+            <div class="form-item"><%= categories[i].name %></div>
+            <div class="btn-row">
+                <a class="btn btn-primary" href="/categories/<%= categories[i]._id %>">View</a> 
+                <a class="btn btn-primary" href="/categories/<%= categories[i]._id %>/edit">Edit</a> 
+                <%- include('../partials/deleteForm', { url: `/categories/${categories[i]._id}` }) %> 
+            </div>
         </div>
     <% } %> 
+
+    <br>
+    <br>
+    <br>
+    <br>
+
     <div class="page-row">
         <% if (pages > 0) { %>
             <ul class="pagination text-center">
